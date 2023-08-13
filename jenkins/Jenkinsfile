@@ -9,16 +9,4 @@ node {
             sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
         }
     }
-    stage('Deliver') {
-        docker.image('cdrx/pyinstaller-linux:python2').inside {
-            echo 'Delivering...'
-            sh 'pyinstaller --onefile sources/add2vals.py'
-        }
-        post {
-            success {
-                echo 'Post success...'
-                archiveArtifacts artifacts: 'dist/add2vals', allowEmptyArchive: true
-            }
-        }
-    }
 }

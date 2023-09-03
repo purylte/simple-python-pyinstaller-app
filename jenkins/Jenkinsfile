@@ -31,7 +31,9 @@ pipeline {
             }
         }
         stage('Manual Approval') {
-            input 'Proceed to Deploy?'
+            steps {
+                input(message: "Proceed to deploy?")
+            }
         }
         stage('Deploy') { 
             agent any

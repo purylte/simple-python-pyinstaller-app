@@ -30,27 +30,10 @@ pipeline {
                 }
             }
         }
-         stage('Manual Approval') {
+        stage('Manual Approval') {
             input {
                 message 'Proceed to Deploy?'
                 ok 'Proceed'
-                parameters {
-                    booleanParam(
-                        name: 'PROCEED_TO_DEPLOY',
-                        defaultValue: false,
-                        description: 'Klik Proceed untuk melanjutkan atau Abort untuk menghentikan eksekusi pipeline'
-                    )
-                }
-            }
-            steps {
-                script {
-                    if (params.PROCEED_TO_DEPLOY) {
-                        echo 'User has chosen to proceed to Deploy stage.'
-                    } else {
-                        currentBuild.result = 'ABORTED'
-                        error('User has chosen to abort the pipeline.')
-                    }
-                }
             }
         }
         stage('Deploy') { 
